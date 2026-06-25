@@ -14,10 +14,10 @@ export function ratingText(rating?: number) {
     return 'Sin valorar';
   }
 
-  if (rating <= 3) return 'No repetiria';
+  if (rating <= 3) return 'No repetiría';
   if (rating <= 6) return 'Aceptable';
   if (rating <= 8) return 'Me gusta';
-  return 'Favorito / repetiria compra';
+  return 'Favorito / repetiría compra';
 }
 
 export function filterAndSortProducts(products: Product[], filters: ProductFiltersState) {

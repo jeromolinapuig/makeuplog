@@ -23,7 +23,7 @@ export function DashboardSummary({ products }: DashboardSummaryProps) {
         <strong>{favorites}</strong>
       </div>
       <div>
-        <span>Categoria principal</span>
+        <span>Categoría principal</span>
         <strong>{topCategory}</strong>
       </div>
     </section>

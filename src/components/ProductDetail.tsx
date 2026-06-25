@@ -33,12 +33,11 @@ export function ProductDetail({ product, onBack, onEdit, onDelete, onToggleFavor
             </button>
           </div>
           <dl className="detail-list">
-            <div><dt>Categoria</dt><dd>{product.categoryName}</dd></div>
+            <div><dt>Categoría</dt><dd>{product.categoryName}</dd></div>
             <div><dt>Grupo</dt><dd>{groupLabels[product.group]}</dd></div>
             <div><dt>Precio</dt><dd>{product.price !== undefined ? formatPrice(product.price) : 'Sin precio'}</dd></div>
             <div><dt>Tono</dt><dd>{product.shade || 'Sin tono'}</dd></div>
-            <div><dt>Valoracion</dt><dd><RatingBadge rating={product.rating} /> {ratingText(product.rating)}</dd></div>
-            <div><dt>Compra</dt><dd>{product.purchaseDate || 'Sin fecha'}</dd></div>
+            <div><dt>Valoración</dt><dd><RatingBadge rating={product.rating} /> {ratingText(product.rating)}</dd></div>
           </dl>
           {product.notes && <p className="notes">{product.notes}</p>}
           <div className="form-actions">

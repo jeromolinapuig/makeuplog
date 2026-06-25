@@ -10,19 +10,19 @@ export const groupLabels = {
 } as const;
 
 export const initialCategories: Category[] = [
-  ...['Base', 'Corrector', 'Polvos', 'Colorete', 'Bronzer', 'Iluminador', 'Sombras', 'Eyeliner', 'Mascara de pestanas', 'Cejas', 'Labial', 'Gloss', 'Fijador', 'Primer', 'Otros'].map((name) => ({
+  ...['Base', 'Corrector', 'Polvos', 'Colorete', 'Bronzer', 'Iluminador', 'Sombras', 'Eyeliner', 'Máscara de pestañas', 'Cejas', 'Labial', 'Gloss', 'Fijador', 'Primer', 'Otros'].map((name) => ({
     id: `makeup-${name.toLowerCase().replaceAll(' ', '-')}`,
     name,
     group: 'makeup' as const,
     createdAt: now,
   })),
-  ...['Limpiador', 'Hidratante', 'Serum', 'Protector solar', 'Tonico', 'Contorno de ojos', 'Otros'].map((name) => ({
+  ...['Limpiador', 'Hidratante', 'Sérum', 'Protector solar', 'Tónico', 'Contorno de ojos', 'Otros'].map((name) => ({
     id: `skincare-${name.toLowerCase().replaceAll(' ', '-')}`,
     name,
     group: 'skincare' as const,
     createdAt: now,
   })),
-  ...['Champu', 'Acondicionador', 'Mascarilla', 'Aceite', 'Protector termico', 'Styling', 'Otros'].map((name) => ({
+  ...['Champú', 'Acondicionador', 'Mascarilla', 'Aceite', 'Protector térmico', 'Styling', 'Otros'].map((name) => ({
     id: `hair-${name.toLowerCase().replaceAll(' ', '-')}`,
     name,
     group: 'hair' as const,

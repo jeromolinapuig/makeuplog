@@ -20,7 +20,7 @@ export function ProductFilters({ filters, categories, brands, onChange }: Produc
         <input value={filters.query} onChange={(event) => update('query', event.target.value)} placeholder="Nombre, marca, tono o notas" />
       </label>
       <label>
-        Categoria
+        Categoría
         <select value={filters.categoryId} onChange={(event) => update('categoryId', event.target.value)}>
           <option value="">Todas</option>
           {categories.map((category) => (
@@ -53,7 +53,7 @@ export function ProductFilters({ filters, categories, brands, onChange }: Produc
         </select>
       </label>
       <label>
-        Valoracion minima
+        Valoración mínima
         <input min="1" max="10" type="number" value={filters.minRating} onChange={(event) => update('minRating', event.target.value)} />
       </label>
       <label>
@@ -62,8 +62,8 @@ export function ProductFilters({ filters, categories, brands, onChange }: Produc
           <option value="recent">Mas recientes</option>
           <option value="name">Nombre</option>
           <option value="brand">Marca</option>
-          <option value="ratingDesc">Valoracion mas alta</option>
-          <option value="ratingAsc">Valoracion mas baja</option>
+          <option value="ratingDesc">Valoración más alta</option>
+          <option value="ratingAsc">Valoración más baja</option>
           <option value="price">Precio</option>
         </select>
       </label>

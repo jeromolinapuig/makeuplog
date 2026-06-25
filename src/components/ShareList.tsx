@@ -18,7 +18,7 @@ export function ShareList({ products, onOpen }: ShareListProps) {
   }
 
   if (products.length === 0) {
-    return <EmptyState title="Todavia no has anadido productos a la lista para compartir." />;
+    return <EmptyState title="Todavía no has añadido productos a la lista para compartir." />;
   }
 
   return (

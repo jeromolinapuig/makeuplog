@@ -12,7 +12,6 @@ export type Product = {
   rating?: number;
   isFavorite: boolean;
   isShared: boolean;
-  purchaseDate?: string;
   mainImage?: string;
   extraImages?: string[];
   notes?: string;

@@ -19,7 +19,7 @@ export function CategoryManager({ categories, products, onAdd, onUpdate, onDelet
   async function submit(event: FormEvent) {
     event.preventDefault();
     if (!name.trim()) {
-      setMessage('Escribe un nombre de categoria.');
+      setMessage('Escribe un nombre de categoría.');
       return;
     }
 
@@ -34,7 +34,7 @@ export function CategoryManager({ categories, products, onAdd, onUpdate, onDelet
       setGroup('makeup');
       setMessage('');
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'No se ha podido guardar la categoria.');
+      setMessage(error instanceof Error ? error.message : 'No se ha podido guardar la categoría.');
     }
   }
 
@@ -55,7 +55,7 @@ export function CategoryManager({ categories, products, onAdd, onUpdate, onDelet
       await onDelete(category.id);
       setMessage('');
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'No se ha podido eliminar la categoria.');
+      setMessage(error instanceof Error ? error.message : 'No se ha podido eliminar la categoría.');
     }
   }
 
@@ -77,7 +77,7 @@ export function CategoryManager({ categories, products, onAdd, onUpdate, onDelet
           </select>
         </label>
         <button className="primary-button" type="submit">
-          {editingId ? 'Guardar categoria' : 'Crear categoria'}
+          {editingId ? 'Guardar categoría' : 'Crear categoría'}
         </button>
       </form>
       {message && <p className="notice">{message}</p>}

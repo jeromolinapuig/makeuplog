@@ -22,7 +22,6 @@ const emptyDraft: ProductDraft = {
   rating: undefined,
   isFavorite: false,
   isShared: false,
-  purchaseDate: '',
   mainImage: '',
   extraImages: [],
   notes: '',
@@ -41,7 +40,6 @@ export function ProductForm({ categories, product, onSubmit, onCancel }: Product
           rating: product.rating,
           isFavorite: product.isFavorite,
           isShared: product.isShared,
-          purchaseDate: product.purchaseDate ?? '',
           mainImage: product.mainImage ?? '',
           extraImages: product.extraImages ?? [],
           notes: product.notes ?? '',
@@ -61,9 +59,9 @@ export function ProductForm({ categories, product, onSubmit, onCancel }: Product
     const nextErrors: FormErrors = {};
     if (!draft.name.trim()) nextErrors.name = 'El nombre es obligatorio.';
     if (!draft.brand.trim()) nextErrors.brand = 'La marca es obligatoria.';
-    if (!draft.categoryId) nextErrors.categoryId = 'Selecciona una categoria.';
+    if (!draft.categoryId) nextErrors.categoryId = 'Selecciona una categoría.';
     if (draft.price !== undefined && draft.price < 0) nextErrors.price = 'El precio no puede ser negativo.';
-    if (draft.rating !== undefined && (draft.rating < 1 || draft.rating > 10)) nextErrors.rating = 'La valoracion debe estar entre 1 y 10.';
+    if (draft.rating !== undefined && (draft.rating < 1 || draft.rating > 10)) nextErrors.rating = 'La valoración debe estar entre 1 y 10.';
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   }
@@ -80,7 +78,6 @@ export function ProductForm({ categories, product, onSubmit, onCancel }: Product
         brand: draft.brand.trim(),
         shade: draft.shade?.trim() || undefined,
         notes: draft.notes?.trim() || undefined,
-        purchaseDate: draft.purchaseDate || undefined,
         price: draft.price === undefined || Number.isNaN(draft.price) ? undefined : draft.price,
         rating: draft.rating === undefined || Number.isNaN(draft.rating) ? undefined : draft.rating,
         mainImage: draft.mainImage || undefined,
@@ -121,9 +118,9 @@ export function ProductForm({ categories, product, onSubmit, onCancel }: Product
           </select>
         </label>
         <label>
-          Categoria
+          Categoría
           <select value={draft.categoryId} onChange={(event) => update('categoryId', event.target.value)} aria-invalid={Boolean(errors.categoryId)}>
-            <option value="">Selecciona categoria</option>
+            <option value="">Selecciona categoría</option>
             {visibleCategories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -142,13 +139,9 @@ export function ProductForm({ categories, product, onSubmit, onCancel }: Product
           <input value={draft.shade ?? ''} onChange={(event) => update('shade', event.target.value)} />
         </label>
         <label>
-          Valoracion
+          Valoración
           <input min="1" max="10" type="number" value={draft.rating ?? ''} onChange={(event) => update('rating', event.target.value === '' ? undefined : Number(event.target.value))} />
           {errors.rating && <span className="field-error">{errors.rating}</span>}
-        </label>
-        <label>
-          Fecha de compra
-          <input type="date" value={draft.purchaseDate ?? ''} onChange={(event) => update('purchaseDate', event.target.value)} />
         </label>
       </div>
       <div className="toggle-grid">
@@ -165,14 +158,14 @@ export function ProductForm({ categories, product, onSubmit, onCancel }: Product
       <ImageUploader label="Fotos extra" multiple images={draft.extraImages ?? []} onChange={(images) => update('extraImages', images)} />
       <label>
         Notas
-        <textarea rows={5} value={draft.notes ?? ''} onChange={(event) => update('notes', event.target.value)} placeholder="Textura, cobertura, duracion, tono..." />
+        <textarea rows={5} value={draft.notes ?? ''} onChange={(event) => update('notes', event.target.value)} placeholder="Textura, cobertura, duración, tono..." />
       </label>
       <div className="form-actions">
         <button className="secondary-button" type="button" onClick={onCancel}>
           Cancelar
         </button>
         <button className="primary-button" type="submit">
-          {product ? 'Guardar cambios' : 'Anadir producto'}
+          {product ? 'Guardar cambios' : 'Añadir producto'}
         </button>
       </div>
       {submitError && <p className="field-error">{submitError}</p>}

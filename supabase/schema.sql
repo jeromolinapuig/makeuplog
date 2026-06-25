@@ -21,7 +21,6 @@ create table if not exists public.makeuplog_products (
   rating integer check (rating between 1 and 10),
   is_favorite boolean not null default false,
   is_shared boolean not null default false,
-  purchase_date date,
   main_image text,
   extra_images text[] not null default '{}',
   notes text,

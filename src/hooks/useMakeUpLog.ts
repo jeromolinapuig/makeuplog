@@ -51,33 +51,33 @@ export function useMakeUpLog(userId: string | null) {
   function findCategory(categoryId: string) {
     const category = categories.find((item) => item.id === categoryId);
     if (!category) {
-      throw new Error('Selecciona una categoria valida.');
+      throw new Error('Selecciona una categoría válida.');
     }
 
     return category;
   }
 
   async function addProduct(draft: ProductDraft) {
-    if (!userId) throw new Error('Inicia sesion para guardar productos.');
+    if (!userId) throw new Error('Inicia sesión para guardar productos.');
     const product = await createProduct(userId, draft, findCategory(draft.categoryId));
     setProducts((current) => [product, ...current]);
     return product.id;
   }
 
   async function updateProduct(id: string, draft: ProductDraft) {
-    if (!userId) throw new Error('Inicia sesion para editar productos.');
+    if (!userId) throw new Error('Inicia sesión para editar productos.');
     const product = await saveProduct(id, userId, draft, findCategory(draft.categoryId));
     setProducts((current) => current.map((item) => (item.id === id ? product : item)));
   }
 
   async function deleteProduct(id: string) {
-    if (!userId) throw new Error('Inicia sesion para eliminar productos.');
+    if (!userId) throw new Error('Inicia sesión para eliminar productos.');
     await removeProduct(id, userId);
     setProducts((current) => current.filter((product) => product.id !== id));
   }
 
   async function toggleFavorite(id: string) {
-    if (!userId) throw new Error('Inicia sesion para actualizar productos.');
+    if (!userId) throw new Error('Inicia sesión para actualizar productos.');
     const currentProduct = products.find((product) => product.id === id);
     if (!currentProduct) return;
     const product = await patchProduct(id, userId, { is_favorite: !currentProduct.isFavorite });
@@ -85,7 +85,7 @@ export function useMakeUpLog(userId: string | null) {
   }
 
   async function toggleShared(id: string) {
-    if (!userId) throw new Error('Inicia sesion para actualizar productos.');
+    if (!userId) throw new Error('Inicia sesión para actualizar productos.');
     const currentProduct = products.find((product) => product.id === id);
     if (!currentProduct) return;
     const product = await patchProduct(id, userId, { is_shared: !currentProduct.isShared });
@@ -93,13 +93,13 @@ export function useMakeUpLog(userId: string | null) {
   }
 
   async function addCategory(name: string, group: CategoryGroup) {
-    if (!userId) throw new Error('Inicia sesion para crear categorias.');
+    if (!userId) throw new Error('Inicia sesión para crear categorías.');
     const category = await createCategory(userId, name.trim(), group);
     setCategories((current) => [...current, category]);
   }
 
   async function updateCategory(id: string, name: string, group: CategoryGroup) {
-    if (!userId) throw new Error('Inicia sesion para editar categorias.');
+    if (!userId) throw new Error('Inicia sesión para editar categorías.');
     const category = await saveCategory(id, userId, name.trim(), group);
     setCategories((current) => current.map((item) => (item.id === id ? category : item)));
     setProducts((current) =>
@@ -110,7 +110,7 @@ export function useMakeUpLog(userId: string | null) {
   }
 
   async function deleteCategory(id: string) {
-    if (!userId) throw new Error('Inicia sesion para eliminar categorias.');
+    if (!userId) throw new Error('Inicia sesión para eliminar categorías.');
     await removeCategory(id, userId);
     setCategories((current) => current.filter((category) => category.id !== id));
   }

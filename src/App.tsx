@@ -58,6 +58,11 @@ function pathFor(route: Route) {
   return '/';
 }
 
+function routeSection(route: Route) {
+  if (route.name === 'newProduct' || route.name === 'productDetail' || route.name === 'editProduct') return 'products';
+  return route.name;
+}
+
 export default function App() {
   const auth = useAuth();
   const store = useMakeUpLog(auth.user?.id ?? null);
@@ -86,7 +91,7 @@ export default function App() {
     try {
       await action();
     } catch (error) {
-      setActionError(error instanceof Error ? error.message : 'No se ha podido completar la accion.');
+      setActionError(error instanceof Error ? error.message : 'No se ha podido completar la acción.');
     }
   }
 
@@ -101,9 +106,17 @@ export default function App() {
 
   const editingProduct = route.name === 'editProduct' ? store.products.find((product) => product.id === route.id) : undefined;
   const detailProduct = route.name === 'productDetail' ? store.products.find((product) => product.id === route.id) : undefined;
+  const activeSection = routeSection(route);
+  const navItems = [
+    { label: 'Inicio', route: { name: 'dashboard' } as Route, section: 'dashboard' },
+    { label: 'Productos', route: { name: 'products' } as Route, section: 'products' },
+    { label: 'Favoritos', route: { name: 'favorites' } as Route, section: 'favorites' },
+    { label: 'Categorías', route: { name: 'categories' } as Route, section: 'categories' },
+    { label: 'Lista', route: { name: 'shareList' } as Route, section: 'shareList' },
+  ];
 
   if (auth.isLoading) {
-    return <main className="status-page">Cargando sesion...</main>;
+    return <main className="status-page">Cargando sesión...</main>;
   }
 
   if (!auth.user) {
@@ -112,20 +125,30 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <header className="app-header">
+      <aside className="app-sidebar">
         <button className="brand-button" type="button" onClick={() => navigate({ name: 'dashboard' })}>
-          MakeUpLog
+          <span>MakeUpLog</span>
+          <small>Catálogo privado</small>
         </button>
-        <nav aria-label="Navegacion principal">
-          <button type="button" onClick={() => navigate({ name: 'products' })}>Productos</button>
-          <button type="button" onClick={() => navigate({ name: 'favorites' })}>Favoritos</button>
-          <button type="button" onClick={() => navigate({ name: 'categories' })}>Categorias</button>
-          <button type="button" onClick={() => navigate({ name: 'shareList' })}>Lista</button>
-          <button type="button" onClick={auth.signOut}>Salir</button>
+        <nav className="app-nav" aria-label="Navegación principal">
+          {navItems.map((item) => (
+            <button
+              className={activeSection === item.section ? 'is-active' : ''}
+              type="button"
+              key={item.section}
+              onClick={() => navigate(item.route)}
+            >
+              {item.label}
+            </button>
+          ))}
         </nav>
-      </header>
+        <div className="user-panel">
+          <span>{auth.user.email}</span>
+          <button className="secondary-button" type="button" onClick={auth.signOut}>Salir</button>
+        </div>
+      </aside>
 
-      <main>
+      <main className="app-main">
         {(store.error || actionError) && (
           <div className="notice-panel" role="alert">
             {store.error || actionError}
@@ -136,23 +159,23 @@ export default function App() {
         {route.name === 'dashboard' && (
           <div className="page-stack">
             <section className="page-heading">
-              <p className="eyebrow">Catalogo privado</p>
+              <p className="eyebrow">Catálogo privado</p>
               <h1>Tu registro de belleza</h1>
-              <p>Productos, valoraciones, favoritos e ideas para regalar en un unico lugar.</p>
+              <p>Productos, valoraciones, favoritos e ideas para regalar en un único lugar.</p>
             </section>
             <DashboardSummary products={store.products} />
             <section className="quick-actions" aria-label="Accesos rapidos">
-              <button className="primary-button" type="button" onClick={() => navigate({ name: 'newProduct' })}>Anadir producto</button>
+              <button className="primary-button" type="button" onClick={() => navigate({ name: 'newProduct' })}>Añadir producto</button>
               <button className="secondary-button" type="button" onClick={() => navigate({ name: 'products' })}>Ver productos</button>
               <button className="secondary-button" type="button" onClick={() => navigate({ name: 'favorites' })}>Ver favoritos</button>
-              <button className="secondary-button" type="button" onClick={() => navigate({ name: 'categories' })}>Gestionar categorias</button>
+              <button className="secondary-button" type="button" onClick={() => navigate({ name: 'categories' })}>Gestionar categorías</button>
               <button className="secondary-button" type="button" onClick={() => navigate({ name: 'shareList' })}>Lista compartible</button>
             </section>
             <section>
-              <h2>Ultimos productos</h2>
+              <h2>Últimos productos</h2>
               <ProductList
                 products={recentProducts}
-                emptyText="Todavia no has registrado ningun producto. Anade el primero para empezar tu coleccion."
+                emptyText="Todavía no has registrado ningún producto. Añade el primero para empezar tu colección."
                 onOpen={(id) => navigate({ name: 'productDetail', id })}
                 onToggleFavorite={(id) => runAction(() => store.toggleFavorite(id))}
                 onToggleShared={(id) => runAction(() => store.toggleShared(id))}
@@ -166,14 +189,14 @@ export default function App() {
             <div className="title-row">
               <section className="page-heading">
                 <h1>Productos</h1>
-                <p>Busca, filtra y ordena tu catalogo.</p>
+                <p>Busca, filtra y ordena tu catálogo.</p>
               </section>
-              <button className="primary-button" type="button" onClick={() => navigate({ name: 'newProduct' })}>Anadir</button>
+              <button className="primary-button" type="button" onClick={() => navigate({ name: 'newProduct' })}>Añadir</button>
             </div>
             <ProductFilters filters={filters} categories={store.categories} brands={store.brands} onChange={setFilters} />
             <ProductList
               products={visibleProducts}
-              emptyText={store.products.length === 0 ? 'Todavia no has registrado ningun producto. Anade el primero para empezar tu coleccion.' : 'No se han encontrado productos con esos filtros.'}
+              emptyText={store.products.length === 0 ? 'Todavía no has registrado ningún producto. Añade el primero para empezar tu colección.' : 'No se han encontrado productos con esos filtros.'}
               onOpen={(id) => navigate({ name: 'productDetail', id })}
               onToggleFavorite={(id) => runAction(() => store.toggleFavorite(id))}
               onToggleShared={(id) => runAction(() => store.toggleShared(id))}
@@ -184,7 +207,7 @@ export default function App() {
         {route.name === 'newProduct' && (
           <div className="page-stack narrow">
             <section className="page-heading">
-              <h1>Anadir producto</h1>
+              <h1>Añadir producto</h1>
             </section>
             <ProductForm
               categories={store.categories}
@@ -237,11 +260,11 @@ export default function App() {
           <div className="page-stack">
             <section className="page-heading">
               <h1>Favoritos</h1>
-              <p>Productos que mas te gustan o que repetirias.</p>
+              <p>Productos que más te gustan o que repetirías.</p>
             </section>
             <ProductList
               products={favoriteProducts}
-              emptyText="Todavia no has marcado favoritos. Cuando valores tus productos, apareceran aqui los que mas te gustan."
+              emptyText="Todavía no has marcado favoritos. Cuando valores tus productos, aparecerán aquí los que más te gustan."
               onOpen={(id) => navigate({ name: 'productDetail', id })}
               onToggleFavorite={(id) => runAction(() => store.toggleFavorite(id))}
               onToggleShared={(id) => runAction(() => store.toggleShared(id))}
@@ -252,8 +275,8 @@ export default function App() {
         {route.name === 'categories' && (
           <div className="page-stack">
             <section className="page-heading">
-              <h1>Categorias</h1>
-              <p>Crea y ajusta categorias para productos futuros.</p>
+              <h1>Categorías</h1>
+              <p>Crea y ajusta categorías para productos futuros.</p>
             </section>
             <CategoryManager
               categories={store.categories}
@@ -275,6 +298,19 @@ export default function App() {
           </div>
         )}
       </main>
+
+      <nav className="mobile-nav" aria-label="Navegación principal móvil">
+        {navItems.map((item) => (
+          <button
+            className={activeSection === item.section ? 'is-active' : ''}
+            type="button"
+            key={item.section}
+            onClick={() => navigate(item.route)}
+          >
+            {item.label}
+          </button>
+        ))}
+      </nav>
     </div>
   );
 }

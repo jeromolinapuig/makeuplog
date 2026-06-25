@@ -23,7 +23,6 @@ type ProductRow = {
   rating: number | null;
   is_favorite: boolean;
   is_shared: boolean;
-  purchase_date: string | null;
   main_image: string | null;
   extra_images: string[] | null;
   notes: string | null;
@@ -33,7 +32,7 @@ type ProductRow = {
 
 function requireSupabase() {
   if (!supabase) {
-    throw new Error('Supabase no esta configurado.');
+    throw new Error('Supabase no está configurado.');
   }
 
   return supabase;
@@ -61,7 +60,6 @@ function toProduct(row: ProductRow): Product {
     rating: row.rating ?? undefined,
     isFavorite: row.is_favorite,
     isShared: row.is_shared,
-    purchaseDate: row.purchase_date ?? undefined,
     mainImage: row.main_image ?? undefined,
     extraImages: row.extra_images ?? [],
     notes: row.notes ?? undefined,
@@ -83,7 +81,6 @@ function productPayload(draft: ProductDraft, category: Category, userId: string)
     rating: draft.rating ?? null,
     is_favorite: draft.isFavorite,
     is_shared: draft.isShared,
-    purchase_date: draft.purchaseDate ?? null,
     main_image: draft.mainImage ?? null,
     extra_images: draft.extraImages ?? [],
     notes: draft.notes ?? null,
