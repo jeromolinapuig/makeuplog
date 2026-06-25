@@ -9,3 +9,5 @@
 - Añadido inicio de sesión y registro exclusivamente con Google mediante Supabase Auth.
 - Sustituida la persistencia local por tablas de Supabase para productos y categorías asociadas a cada usuario.
 - Añadido `.gitignore` para dependencias, builds, variables de entorno locales y artefactos temporales.
+- Configuradas las variables locales de Supabase usando `VITE_SUPABASE_PUBLISHABLE_KEY`.
+- Añadido fallback para `VITE_SUPABASE_ANON_KEY` y documentación de variables en Vercel.

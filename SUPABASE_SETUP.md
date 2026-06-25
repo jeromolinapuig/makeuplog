@@ -12,8 +12,27 @@ Copia `.env.example` a `.env.local` y rellena:
 
 ```bash
 VITE_SUPABASE_URL=https://your-project-ref.supabase.co
-VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
 ```
+
+Tambien se acepta `VITE_SUPABASE_ANON_KEY` como fallback si el proyecto usa la nomenclatura antigua de Supabase, pero la variable recomendada es `VITE_SUPABASE_PUBLISHABLE_KEY`.
+
+### Vercel
+
+En produccion, `.env.local` no se sube al repositorio ni llega a Vercel. Debes crear las mismas variables en:
+
+```text
+Vercel > Project > Settings > Environment Variables
+```
+
+Anade estas variables para `Production`, `Preview` y `Development` si quieres que funcionen todos los entornos:
+
+```bash
+VITE_SUPABASE_URL=https://bzqsfjjkjepkmazhedyy.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_RphJPm-EbrGKSaeLbBXrng_T9wgaybO
+```
+
+Despues de guardarlas, haz un redeploy. En Vite, las variables `VITE_*` se incrustan durante el build, asi que no basta con guardarlas: hay que desplegar de nuevo.
 
 ## 2. Base de datos
 
@@ -36,6 +55,12 @@ Configura tambien las redirect URLs que uses en desarrollo y produccion. Para de
 http://127.0.0.1:5173
 http://127.0.0.1:5174
 http://localhost:5173
+```
+
+Para Vercel, anade tambien la URL real de produccion, por ejemplo:
+
+```text
+https://tu-dominio.vercel.app
 ```
 
 La app llama a `signInWithOAuth` con `provider: 'google'` y `redirectTo: window.location.origin`.

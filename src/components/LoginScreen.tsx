@@ -17,7 +17,7 @@ export function LoginScreen({ onSignIn }: LoginScreenProps) {
           </button>
         ) : (
           <div className="empty-state">
-            <p>Faltan las variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`. Copia `.env.example` a `.env.local` y rellena los datos del proyecto Supabase.</p>
+            <p>Faltan las variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY`. En Vercel debes anadirlas en Environment Variables y redeplegar la app.</p>
           </div>
         )}
       </section>
