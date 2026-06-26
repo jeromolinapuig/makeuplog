@@ -1,3 +1,4 @@
+import { ArrowLeft, Gift, Pencil, Trash2 } from 'lucide-react';
 import { groupLabels } from '../data';
 import { Product } from '../types';
 import { formatPrice, ratingText } from '../utils/products';
@@ -17,6 +18,7 @@ export function ProductDetail({ product, onBack, onEdit, onDelete, onToggleFavor
   return (
     <div className="detail-layout">
       <button className="text-link" type="button" onClick={onBack}>
+        <ArrowLeft className="button-icon" size={18} aria-hidden="true" />
         Volver
       </button>
       <section className="detail-hero">
@@ -29,6 +31,7 @@ export function ProductDetail({ product, onBack, onEdit, onDelete, onToggleFavor
           <div className="button-row">
             <FavoriteButton isFavorite={product.isFavorite} onClick={onToggleFavorite} />
             <button className="icon-button" type="button" onClick={onToggleShared} aria-pressed={product.isShared}>
+              <Gift className="button-icon" size={18} aria-hidden="true" />
               {product.isShared ? 'En lista' : 'Compartir'}
             </button>
           </div>
@@ -41,8 +44,8 @@ export function ProductDetail({ product, onBack, onEdit, onDelete, onToggleFavor
           </dl>
           {product.notes && <p className="notes">{product.notes}</p>}
           <div className="form-actions">
-            <button className="secondary-button" type="button" onClick={onEdit}>Editar</button>
-            <button className="danger-button" type="button" onClick={onDelete}>Eliminar</button>
+            <button className="secondary-button" type="button" onClick={onEdit}><Pencil className="button-icon" size={18} aria-hidden="true" />Editar</button>
+            <button className="danger-button" type="button" onClick={onDelete}><Trash2 className="button-icon" size={18} aria-hidden="true" />Eliminar</button>
           </div>
         </div>
       </section>

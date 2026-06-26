@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Check, Copy } from 'lucide-react';
 import { Product } from '../types';
 import { buildShareText } from '../utils/products';
 import { EmptyState } from './EmptyState';
@@ -25,6 +26,7 @@ export function ShareList({ products, onOpen }: ShareListProps) {
     <div className="share-layout">
       <textarea readOnly rows={Math.min(10, products.length + 1)} value={text} aria-label="Texto para compartir" />
       <button className="primary-button" type="button" onClick={copy}>
+        {copied ? <Check className="button-icon" size={18} aria-hidden="true" /> : <Copy className="button-icon" size={18} aria-hidden="true" />}
         {copied ? 'Copiado' : 'Copiar lista'}
       </button>
       <div className="share-items">

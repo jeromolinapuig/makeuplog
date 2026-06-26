@@ -1,3 +1,4 @@
+import { Gift, Heart } from 'lucide-react';
 import { Product } from '../types';
 import { formatPrice } from '../utils/products';
 import { RatingBadge } from './RatingBadge';
@@ -32,9 +33,11 @@ export function ProductCard({ product, onOpen, onToggleFavorite, onToggleShared 
         </div>
         <div className="button-row">
           <button className="small-button" type="button" onClick={onToggleFavorite} aria-pressed={product.isFavorite}>
+            <Heart className="button-icon" size={17} fill={product.isFavorite ? 'currentColor' : 'none'} aria-hidden="true" />
             {product.isFavorite ? 'Quitar favorito' : 'Marcar favorito'}
           </button>
           <button className="small-button" type="button" onClick={onToggleShared} aria-pressed={product.isShared}>
+            <Gift className="button-icon" size={17} aria-hidden="true" />
             {product.isShared ? 'Quitar de lista' : 'Compartir'}
           </button>
         </div>

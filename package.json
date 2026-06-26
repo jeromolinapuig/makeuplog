@@ -1,7 +1,7 @@
 {
   "name": "makeuplog",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,6 +11,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.108.2",
     "@vitejs/plugin-react": "latest",
+    "lucide-react": "^1.21.0",
     "react": "latest",
     "react-dom": "latest",
     "typescript": "latest",

@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 1.1.0
+
+- Rediseñado el tema visual con una estética más cute: paleta blush, mint y lila, tarjetas más suaves, fondos con patrón y botones más expresivos.
+- Añadida iconografía en login, navegación y acciones principales para reforzar la estética visual de la aplicación.
+
 ## 1.0.0
 
 - Implementada la aplicación MakeUpLog con dashboard, catálogo de productos, detalle, favoritos, gestión de categorías y lista compartible.

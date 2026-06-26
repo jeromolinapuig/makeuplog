@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Gift, Grid3X3, Heart, Home, LogOut, Plus, Sparkles } from 'lucide-react';
 import { CategoryManager } from './components/CategoryManager';
 import { DashboardSummary } from './components/DashboardSummary';
 import { EmptyState } from './components/EmptyState';
@@ -108,11 +109,11 @@ export default function App() {
   const detailProduct = route.name === 'productDetail' ? store.products.find((product) => product.id === route.id) : undefined;
   const activeSection = routeSection(route);
   const navItems = [
-    { label: 'Inicio', route: { name: 'dashboard' } as Route, section: 'dashboard' },
-    { label: 'Productos', route: { name: 'products' } as Route, section: 'products' },
-    { label: 'Favoritos', route: { name: 'favorites' } as Route, section: 'favorites' },
-    { label: 'Categorías', route: { name: 'categories' } as Route, section: 'categories' },
-    { label: 'Lista', route: { name: 'shareList' } as Route, section: 'shareList' },
+    { label: 'Inicio', route: { name: 'dashboard' } as Route, section: 'dashboard', Icon: Home },
+    { label: 'Productos', route: { name: 'products' } as Route, section: 'products', Icon: Sparkles },
+    { label: 'Favoritos', route: { name: 'favorites' } as Route, section: 'favorites', Icon: Heart },
+    { label: 'Categorías', route: { name: 'categories' } as Route, section: 'categories', Icon: Grid3X3 },
+    { label: 'Lista', route: { name: 'shareList' } as Route, section: 'shareList', Icon: Gift },
   ];
 
   if (auth.isLoading) {
@@ -127,6 +128,7 @@ export default function App() {
     <div className="app-shell">
       <aside className="app-sidebar">
         <button className="brand-button" type="button" onClick={() => navigate({ name: 'dashboard' })}>
+          <span className="brand-mark" aria-hidden="true"><Sparkles size={20} /></span>
           <span>MakeUpLog</span>
           <small>Catálogo privado</small>
         </button>
@@ -138,13 +140,17 @@ export default function App() {
               key={item.section}
               onClick={() => navigate(item.route)}
             >
+              <item.Icon className="nav-icon" size={18} aria-hidden="true" />
               {item.label}
             </button>
           ))}
         </nav>
         <div className="user-panel">
           <span>{auth.user.email}</span>
-          <button className="secondary-button" type="button" onClick={auth.signOut}>Salir</button>
+          <button className="secondary-button" type="button" onClick={auth.signOut}>
+            <LogOut className="button-icon" size={18} aria-hidden="true" />
+            Salir
+          </button>
         </div>
       </aside>
 
@@ -165,11 +171,11 @@ export default function App() {
             </section>
             <DashboardSummary products={store.products} />
             <section className="quick-actions" aria-label="Accesos rapidos">
-              <button className="primary-button" type="button" onClick={() => navigate({ name: 'newProduct' })}>Añadir producto</button>
-              <button className="secondary-button" type="button" onClick={() => navigate({ name: 'products' })}>Ver productos</button>
-              <button className="secondary-button" type="button" onClick={() => navigate({ name: 'favorites' })}>Ver favoritos</button>
-              <button className="secondary-button" type="button" onClick={() => navigate({ name: 'categories' })}>Gestionar categorías</button>
-              <button className="secondary-button" type="button" onClick={() => navigate({ name: 'shareList' })}>Lista compartible</button>
+              <button className="primary-button" type="button" onClick={() => navigate({ name: 'newProduct' })}><Plus className="button-icon" size={18} aria-hidden="true" />Añadir producto</button>
+              <button className="secondary-button" type="button" onClick={() => navigate({ name: 'products' })}><Sparkles className="button-icon" size={18} aria-hidden="true" />Ver productos</button>
+              <button className="secondary-button" type="button" onClick={() => navigate({ name: 'favorites' })}><Heart className="button-icon" size={18} aria-hidden="true" />Ver favoritos</button>
+              <button className="secondary-button" type="button" onClick={() => navigate({ name: 'categories' })}><Grid3X3 className="button-icon" size={18} aria-hidden="true" />Gestionar categorías</button>
+              <button className="secondary-button" type="button" onClick={() => navigate({ name: 'shareList' })}><Gift className="button-icon" size={18} aria-hidden="true" />Lista compartible</button>
             </section>
             <section>
               <h2>Últimos productos</h2>
@@ -191,7 +197,7 @@ export default function App() {
                 <h1>Productos</h1>
                 <p>Busca, filtra y ordena tu catálogo.</p>
               </section>
-              <button className="primary-button" type="button" onClick={() => navigate({ name: 'newProduct' })}>Añadir</button>
+              <button className="primary-button" type="button" onClick={() => navigate({ name: 'newProduct' })}><Plus className="button-icon" size={18} aria-hidden="true" />Añadir</button>
             </div>
             <ProductFilters filters={filters} categories={store.categories} brands={store.brands} onChange={setFilters} />
             <ProductList
@@ -307,6 +313,7 @@ export default function App() {
             key={item.section}
             onClick={() => navigate(item.route)}
           >
+            <item.Icon className="nav-icon" size={18} aria-hidden="true" />
             {item.label}
           </button>
         ))}
