@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.2.0
+
+- Restaurado el modo oscuro permanente y recuperado el acento celeste original en el tema visual.
 
 ## 1.1.0
 
