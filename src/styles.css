@@ -543,6 +543,7 @@ h2 {
   height: clamp(13rem, 24vw, 17rem);
   border: 0;
   border-bottom: 1px solid var(--line);
+  overflow: hidden;
   background:
     linear-gradient(135deg, #10141c, #13202a 58%, #1b1830),
     repeating-linear-gradient(45deg, transparent 0 14px, rgba(125, 211, 252, 0.08) 14px 16px);
@@ -571,8 +572,10 @@ h2 {
 }
 
 .product-card__media img {
-  padding: 0.65rem;
+  width: calc(100% - 1.3rem);
+  height: calc(100% - 1.3rem);
   object-fit: contain;
+  object-position: center;
 }
 
 .detail-image img,
@@ -976,7 +979,7 @@ textarea {
   }
 
   .product-card__media {
-    height: clamp(12rem, 58vw, 15rem);
+    height: clamp(15rem, 72vw, 18.5rem);
   }
 
   .product-card__body {

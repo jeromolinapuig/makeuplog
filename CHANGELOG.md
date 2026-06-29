@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+- Corregido el encaje de imagenes en las cards para que no invadan el contenido del producto.
+
 ## 1.3.0
 
 - Agregado autocompletado con productos y marcas ya registrados en el formulario de alta y edicion.
