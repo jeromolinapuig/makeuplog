@@ -11,7 +11,7 @@ import { ShareList } from './components/ShareList';
 import { LoginScreen } from './components/LoginScreen';
 import { useAuth } from './hooks/useAuth';
 import { useMakeUpLog } from './hooks/useMakeUpLog';
-import { ProductFiltersState } from './types';
+import { GiftIdeaDraft, ProductFiltersState } from './types';
 import { filterAndSortProducts } from './utils/products';
 
 const initialFilters: ProductFiltersState = {
@@ -97,6 +97,35 @@ export default function App() {
       await action();
     } catch (error) {
       setActionError(error instanceof Error ? error.message : 'No se ha podido completar la acción.');
+    }
+  }
+
+  async function addGiftIdea(draft: GiftIdeaDraft) {
+    const category = store.categories.find((item) => item.name === 'Otros') ?? store.categories[0];
+    if (!category) {
+      throw new Error('No hay categorias disponibles para guardar la idea.');
+    }
+
+    setActionError('');
+    try {
+      await store.addProduct({
+        name: draft.name,
+        brand: draft.store,
+        categoryId: category.id,
+        group: category.group,
+        price: draft.price,
+        shade: undefined,
+        rating: undefined,
+        isFavorite: false,
+        isShared: true,
+        mainImage: draft.image,
+        extraImages: [],
+        notes: undefined,
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'No se ha podido guardar la idea.';
+      setActionError(message);
+      throw new Error(message);
     }
   }
 
@@ -308,7 +337,7 @@ export default function App() {
               <h1>Ideas para regalar</h1>
               <p>Copia una lista simple con los productos marcados para compartir.</p>
             </section>
-            <ShareList products={sharedProducts} onOpen={(id) => navigate({ name: 'productDetail', id })} />
+            <ShareList products={sharedProducts} onOpen={(id) => navigate({ name: 'productDetail', id })} onAddGiftIdea={addGiftIdea} />
           </div>
         )}
       </main>

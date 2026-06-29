@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Anadido un formulario rapido en ideas para regalar para crear productos nuevos directamente en la lista compartible.
+
 ## 1.3.1
 
 - Corregido el encaje de imagenes en las cards para que no invadan el contenido del producto.

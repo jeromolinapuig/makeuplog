@@ -28,6 +28,13 @@ export type Category = {
 
 export type ProductDraft = Omit<Product, 'id' | 'categoryName' | 'createdAt' | 'updatedAt'>;
 
+export type GiftIdeaDraft = {
+  name: string;
+  store: string;
+  price?: number;
+  image?: string;
+};
+
 export type SortKey = 'recent' | 'name' | 'brand' | 'ratingDesc' | 'ratingAsc' | 'price';
 
 export type ProductFiltersState = {
