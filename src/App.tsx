@@ -86,6 +86,10 @@ export default function App() {
   const favoriteProducts = store.products.filter((product) => product.isFavorite);
   const sharedProducts = store.products.filter((product) => product.isShared);
   const recentProducts = [...store.products].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 4);
+  const productNames = useMemo(
+    () => Array.from(new Set(store.products.map((product) => product.name).filter(Boolean))).sort((a, b) => a.localeCompare(b)),
+    [store.products],
+  );
 
   async function runAction(action: () => Promise<void>) {
     setActionError('');
@@ -217,6 +221,8 @@ export default function App() {
             </section>
             <ProductForm
               categories={store.categories}
+              brandSuggestions={store.brands}
+              productNameSuggestions={productNames}
               onCancel={() => navigate({ name: 'products' })}
               onSubmit={(draft) =>
                 runAction(async () => {
@@ -236,6 +242,8 @@ export default function App() {
             <ProductForm
               categories={store.categories}
               product={editingProduct}
+              brandSuggestions={store.brands}
+              productNameSuggestions={productNames}
               onCancel={() => navigate({ name: 'productDetail', id: editingProduct.id })}
               onSubmit={(draft) =>
                 runAction(async () => {
@@ -304,6 +312,13 @@ export default function App() {
           </div>
         )}
       </main>
+
+      {route.name === 'dashboard' && (
+        <button className="mobile-add-button" type="button" onClick={() => navigate({ name: 'newProduct' })}>
+          <Plus className="button-icon" size={20} aria-hidden="true" />
+          Añadir producto
+        </button>
+      )}
 
       <nav className="mobile-nav" aria-label="Navegación principal móvil">
         {navItems.map((item) => (

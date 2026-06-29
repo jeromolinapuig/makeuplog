@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0
+
+- Agregado autocompletado con productos y marcas ya registrados en el formulario de alta y edicion.
+- Mejorada la accesibilidad del boton para anadir productos en inicio movil y el ajuste visual de las cards de producto.
+
 ## 1.2.0
 
 - Restaurado el modo oscuro permanente y recuperado el acento celeste original en el tema visual.

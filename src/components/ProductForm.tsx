@@ -1,4 +1,4 @@
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useId, useMemo, useState } from 'react';
 import { groupLabels } from '../data';
 import { Category, Product, ProductDraft } from '../types';
 import { ImageUploader } from './ImageUploader';
@@ -6,6 +6,8 @@ import { ImageUploader } from './ImageUploader';
 type ProductFormProps = {
   categories: Category[];
   product?: Product;
+  brandSuggestions?: string[];
+  productNameSuggestions?: string[];
   onSubmit: (draft: ProductDraft) => void | Promise<void>;
   onCancel: () => void;
 };
@@ -27,7 +29,9 @@ const emptyDraft: ProductDraft = {
   notes: '',
 };
 
-export function ProductForm({ categories, product, onSubmit, onCancel }: ProductFormProps) {
+export function ProductForm({ categories, product, brandSuggestions = [], productNameSuggestions = [], onSubmit, onCancel }: ProductFormProps) {
+  const productNameListId = useId();
+  const brandListId = useId();
   const [draft, setDraft] = useState<ProductDraft>(() =>
     product
       ? {
@@ -93,12 +97,36 @@ export function ProductForm({ categories, product, onSubmit, onCancel }: Product
       <div className="form-grid">
         <label>
           Nombre del producto
-          <input value={draft.name} onChange={(event) => update('name', event.target.value)} aria-invalid={Boolean(errors.name)} />
+          <input
+            value={draft.name}
+            onChange={(event) => update('name', event.target.value)}
+            aria-invalid={Boolean(errors.name)}
+            list={productNameSuggestions.length > 0 ? productNameListId : undefined}
+          />
+          {productNameSuggestions.length > 0 && (
+            <datalist id={productNameListId}>
+              {productNameSuggestions.map((name) => (
+                <option key={name} value={name} />
+              ))}
+            </datalist>
+          )}
           {errors.name && <span className="field-error">{errors.name}</span>}
         </label>
         <label>
           Marca
-          <input value={draft.brand} onChange={(event) => update('brand', event.target.value)} aria-invalid={Boolean(errors.brand)} />
+          <input
+            value={draft.brand}
+            onChange={(event) => update('brand', event.target.value)}
+            aria-invalid={Boolean(errors.brand)}
+            list={brandSuggestions.length > 0 ? brandListId : undefined}
+          />
+          {brandSuggestions.length > 0 && (
+            <datalist id={brandListId}>
+              {brandSuggestions.map((brand) => (
+                <option key={brand} value={brand} />
+              ))}
+            </datalist>
+          )}
           {errors.brand && <span className="field-error">{errors.brand}</span>}
         </label>
         <label>
